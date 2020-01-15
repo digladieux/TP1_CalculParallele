@@ -7,11 +7,11 @@
   - [2. Prise en main](#2-prise-en-main)
   - [3. Calcul Matriciel](#3-calcul-matriciel)
     - [3.1 - Implémenter  un  programme  séquentiel, la  taille  du  problème  sera  passé  en  paramètre  sur  la ligne de commande. Vérifier les résultats obtenus.](#31---impl%c3%a9menter-un-programme-s%c3%a9quentiel-la-taille-du-probl%c3%a8me-sera-pass%c3%a9-en-param%c3%a8tre-sur-la-ligne-de-commande-v%c3%a9rifier-les-r%c3%a9sultats-obtenus)
-  - [3.2 - Identifier  les  parties  du  programme  adaptées  à  la  parallélisation,  puis utiliser  les directives OpenMP pour réaliser cela](#32---identifier-les-parties-du-programme-adapt%c3%a9es-%c3%a0-la-parall%c3%a9lisation-puis-utiliser-les-directives-openmp-pour-r%c3%a9aliser-cela)
-  - [3.3 - Pour  chaque  variable  concernée  par  la  parallélisation,  indiquer elledoitêtre  privéeou partagée](#33---pour-chaque-variable-concern%c3%a9e-par-la-parall%c3%a9lisation-indiquer-elledoit%c3%aatre-priv%c3%a9eou-partag%c3%a9e)
-  - [3.4 - Vérifier  que  le  programme  parallèle  donne  des résultats corrects en  comparantses  résultats avec  ceux  du  programme  séquentiel,  et  en  faisant  varier  le  nombre  de  threads  et  la  taille  de matrices.](#34---v%c3%a9rifier-que-le-programme-parall%c3%a8le-donne-des-r%c3%a9sultats-corrects-en-comparantses-r%c3%a9sultats-avec-ceux-du-programme-s%c3%a9quentiel-et-en-faisant-varier-le-nombre-de-threads-et-la-taille-de-matrices)
-  - [3.5 - Vérifier  la  répartition  du  calcul  entre  les  threads  en  utilisant  le  numéro  de  thread  employé pour chaque itération, cecipour différent type d’ordonnancement schedule (dynamic/static).](#35---v%c3%a9rifier-la-r%c3%a9partition-du-calcul-entre-les-threads-en-utilisant-le-num%c3%a9ro-de-thread-employ%c3%a9-pour-chaque-it%c3%a9ration-cecipour-diff%c3%a9rent-type-dordonnancement-schedule-dynamicstatic)
-  - [3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).](#36---mesurer-letemps-dex%c3%a9cutiondu-programme-parall%c3%a8le-en-variant-le-nombre-de-threads-et-la-taille-des-matrices-puiscalculer-la-performance-dela-parall%c3%a9lizationen-utilisant-le-facteur-dacc%c3%a9l%c3%a9ration-du-programmevoir-lannexe)
+    - [3.2 - Identifier  les  parties  du  programme  adaptées  à  la  parallélisation,  puis utiliser  les directives OpenMP pour réaliser cela](#32---identifier-les-parties-du-programme-adapt%c3%a9es-%c3%a0-la-parall%c3%a9lisation-puis-utiliser-les-directives-openmp-pour-r%c3%a9aliser-cela)
+    - [3.3 - Pour  chaque  variable  concernée  par  la  parallélisation,  indiquer elledoitêtre  privéeou partagée](#33---pour-chaque-variable-concern%c3%a9e-par-la-parall%c3%a9lisation-indiquer-elledoit%c3%aatre-priv%c3%a9eou-partag%c3%a9e)
+    - [3.4 - Vérifier  que  le  programme  parallèle  donne  des résultats corrects en  comparantses  résultats avec  ceux  du  programme  séquentiel,  et  en  faisant  varier  le  nombre  de  threads  et  la  taille  de matrices.](#34---v%c3%a9rifier-que-le-programme-parall%c3%a8le-donne-des-r%c3%a9sultats-corrects-en-comparantses-r%c3%a9sultats-avec-ceux-du-programme-s%c3%a9quentiel-et-en-faisant-varier-le-nombre-de-threads-et-la-taille-de-matrices)
+    - [3.5 - Vérifier  la  répartition  du  calcul  entre  les  threads  en  utilisant  le  numéro  de  thread  employé pour chaque itération, cecipour différent type d’ordonnancement schedule (dynamic/static).](#35---v%c3%a9rifier-la-r%c3%a9partition-du-calcul-entre-les-threads-en-utilisant-le-num%c3%a9ro-de-thread-employ%c3%a9-pour-chaque-it%c3%a9ration-cecipour-diff%c3%a9rent-type-dordonnancement-schedule-dynamicstatic)
+    - [3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).](#36---mesurer-letemps-dex%c3%a9cutiondu-programme-parall%c3%a8le-en-variant-le-nombre-de-threads-et-la-taille-des-matrices-puiscalculer-la-performance-dela-parall%c3%a9lizationen-utilisant-le-facteur-dacc%c3%a9l%c3%a9ration-du-programmevoir-lannexe)
 
 ## Avant propos
 
@@ -152,19 +152,19 @@ On effectue donc le calcul matriciel des matrices
 
 Le résultat est correct
 
-## 3.2 - Identifier  les  parties  du  programme  adaptées  à  la  parallélisation,  puis utiliser  les directives OpenMP pour réaliser cela
+### 3.2 - Identifier  les  parties  du  programme  adaptées  à  la  parallélisation,  puis utiliser  les directives OpenMP pour réaliser cela
 
 Tous les temps données ont été calcul en enlevant l'affichage des matrices pour gagner en rapidité, sur des matrices de taille 1000.  
 Les parties du programme adaptés à la parallélisation sont
 - Lors du calcul de la multiplication : On peut ajouter l'instruction `#pragma omp parallel for private(i, j, k) shared(A, B, C)` au dessus des 3 boucles for, pour réduire le temps considérablement. 
 - Lors de l'initialisation des matrices avec l'instruction `#pragma omp parallel for private(i, j) shared(A, B)`. En revanche, l'amélioration est minime comparait à celle lors du calcul
 
-## 3.3 - Pour  chaque  variable  concernée  par  la  parallélisation,  indiquer elledoitêtre  privéeou partagée
+### 3.3 - Pour  chaque  variable  concernée  par  la  parallélisation,  indiquer elledoitêtre  privéeou partagée
 
 Les matrices doivent etre partagées entre tous les threads avec `shared(A, B, C)`, car ils vont calculer différentes lignes donc il n'y aurais pas de conflit.  
 En revanche les indices doivent être privés avec `private(i, j, k)` car chaque threads a besoin de faire ses propres iterations sur les boucles
 
-## 3.4 - Vérifier  que  le  programme  parallèle  donne  des résultats corrects en  comparantses  résultats avec  ceux  du  programme  séquentiel,  et  en  faisant  varier  le  nombre  de  threads  et  la  taille  de matrices.
+### 3.4 - Vérifier  que  le  programme  parallèle  donne  des résultats corrects en  comparantses  résultats avec  ceux  du  programme  séquentiel,  et  en  faisant  varier  le  nombre  de  threads  et  la  taille  de matrices.
 
 Les résultats ont été obtenus en mettant :
 - Tous les affichages en commentaire
@@ -192,7 +192,7 @@ Plus le nombre de threads augmentent, moins le temps d'éxécution est élevé.
 
 Par conséquent, il faut priviligié le parallèle avec un nombre de coeur élevé
 
-## 3.5 - Vérifier  la  répartition  du  calcul  entre  les  threads  en  utilisant  le  numéro  de  thread  employé pour chaque itération, cecipour différent type d’ordonnancement schedule (dynamic/static).
+### 3.5 - Vérifier  la  répartition  du  calcul  entre  les  threads  en  utilisant  le  numéro  de  thread  employé pour chaque itération, cecipour différent type d’ordonnancement schedule (dynamic/static).
 
 Pour savoir qu'elle thread à été utilisé, j'initialise un tableau qui va contenir le nombre de fois ou le thread a été utilisé
 ```c
@@ -235,7 +235,7 @@ Observations (pour une matrice de taille 1000x1000):
 - Avec le mot clé `static`, les threads sont répartis uniformément. Il  y a 192 coeurs donc `192 * 5 = 960`. Il y a donc 40 threads qui sont utilisé 6 fois, et les autres 5 fois
 - Avec `dynamic`, la répartition est aléatoire. La moyenne est autour de 5 fois utilisé, mais on peut aller de 3 à 10
 
-## 3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).
+### 3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).
 
 | Taille Matrice | Nombre de thread | Static | Dynamic |
 | -------------- | ---------------- | ------ | ------- |
