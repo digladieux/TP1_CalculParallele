@@ -11,7 +11,8 @@
     - [3.3 - Pour  chaque  variable  concernée  par  la  parallélisation,  indiquer elledoitêtre  privéeou partagée](#33---pour-chaque-variable-concern%c3%a9e-par-la-parall%c3%a9lisation-indiquer-elledoit%c3%aatre-priv%c3%a9eou-partag%c3%a9e)
     - [3.4 - Vérifier  que  le  programme  parallèle  donne  des résultats corrects en  comparantses  résultats avec  ceux  du  programme  séquentiel,  et  en  faisant  varier  le  nombre  de  threads  et  la  taille  de matrices.](#34---v%c3%a9rifier-que-le-programme-parall%c3%a8le-donne-des-r%c3%a9sultats-corrects-en-comparantses-r%c3%a9sultats-avec-ceux-du-programme-s%c3%a9quentiel-et-en-faisant-varier-le-nombre-de-threads-et-la-taille-de-matrices)
     - [3.5 - Vérifier  la  répartition  du  calcul  entre  les  threads  en  utilisant  le  numéro  de  thread  employé pour chaque itération, cecipour différent type d’ordonnancement schedule (dynamic/static).](#35---v%c3%a9rifier-la-r%c3%a9partition-du-calcul-entre-les-threads-en-utilisant-le-num%c3%a9ro-de-thread-employ%c3%a9-pour-chaque-it%c3%a9ration-cecipour-diff%c3%a9rent-type-dordonnancement-schedule-dynamicstatic)
-    - [3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).](#36---mesurer-letemps-dex%c3%a9cutiondu-programme-parall%c3%a8le-en-variant-le-nombre-de-threads-et-la-taille-des-matrices-puiscalculer-la-performance-dela-parall%c3%a9lizationen-utilisant-le-facteur-dacc%c3%a9l%c3%a9ration-du-programmevoir-lannexe)
+    - [3.6 - Mesurer le temps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).](#36---mesurer-le-temps-dex%c3%a9cutiondu-programme-parall%c3%a8le-en-variant-le-nombre-de-threads-et-la-taille-des-matrices-puiscalculer-la-performance-dela-parall%c3%a9lizationen-utilisant-le-facteur-dacc%c3%a9l%c3%a9ration-du-programmevoir-lannexe)
+    - [3.7 - Analyser et comparer les résultats des différentes parallélizations](#37---analyser-et-comparer-les-r%c3%a9sultats-des-diff%c3%a9rentes-parall%c3%a9lizations)
 
 ## Avant propos
 
@@ -235,7 +236,7 @@ Observations (pour une matrice de taille 1000x1000):
 - Avec le mot clé `static`, les threads sont répartis uniformément. Il  y a 192 coeurs donc `192 * 5 = 960`. Il y a donc 40 threads qui sont utilisé 6 fois, et les autres 5 fois
 - Avec `dynamic`, la répartition est aléatoire. La moyenne est autour de 5 fois utilisé, mais on peut aller de 3 à 10
 
-### 3.6 - Mesurer letemps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).
+### 3.6 - Mesurer le temps  d’exécutiondu  programme  parallèle (en  variant le  nombre  de  threads  et  la taille  des  matrices),  puiscalculer la  performance  dela  parallélizationen  utilisant le  facteur d’accélération du programme(voir l’annexe).
 
 | Taille Matrice | Nombre de thread | Static | Dynamic |
 | -------------- | ---------------- | ------ | ------- |
@@ -256,3 +257,21 @@ On observe donc que plus la taille de la matrice augmente, plus les temps augmen
 On observe donc que plus le nombre de thread augmente, plus les temps augmentes. En revanche, le dynamic est toujours plus rapide
 
 Par conséquent, il faut privilégié le mot clé `dynamic` et un nombre de thread élevé
+
+### 3.7 - Analyser et comparer les résultats des différentes parallélizations
+
+Calcul du speedup du programme avec la formule : 
+`speedup = Temps (séquentiel) / Temps (parallèle)`
+
+En reprenant les données de la question 3.4
+
+| Taille Matrice\Nombre de threads | 1   | 2    | 4    | 8    | 192   |
+| -------------------------------- | --- | ---- | ---- | ---- | ----- |
+| 1000x1000                        | 1   | 1.88 | 3.39 | 6.89 | 32.68 |
+
+On observe donc que plus il y a de threads, plus le speedup augmente.
+
+Pour résumer
+- Utiliser la parallélisation avec `#pragma omp parallel for`
+- Utiliser le mot clé `dynamic` pour améliorer les performances
+- Utiliser le plus de threads disponibles avec la fonction `omp_set_num_threads(omp_get_num_procs());`
